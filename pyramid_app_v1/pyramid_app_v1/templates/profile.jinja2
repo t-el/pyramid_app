@@ -1,0 +1,36 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+<div class="content">
+  <h1><span class="font-semi-bold">Profile</span> <span class="smaller">Page</span></h1>
+  <p class="lead">{{request.base.user.email}} ,<a href="{{request.route_url('reset_password')}}">reset password</a>,<a href="{{request.route_url('logout')}}">Logout</a></p> 
+   
+
+  {% if request.base.user.user_metadata.fav_color %}
+  <div class="card p-2">
+  <h2>Your favorit color is : <span style="background: {{request.base.user.user_metadata.fav_color }};">{{request.base.user.user_metadata.fav_color }}</span></h2>
+    <p>You can change it here : </p>
+  <form method="post" action="{{request.route_url('profile')}}">
+  <label > color</label>
+    <select name="color">
+    {% for color in colors  %}
+         <option>{{color}}</option>
+    {% endfor %}
+    </select>
+     <input class="btn btn-primary btn-sm m-1" type="submit" value="Set color">
+  </form>
+  </div>
+  
+  {% else %}
+   <form method="post" action="{{request.route_url('profile')}}">
+  <label > color</label>
+    <select name="color">
+    {% for color in colors  %}
+         <option>{{color}}</option>
+    {% endfor %}
+    </select>
+     <input class="btn btn-primary m-1" type="submit" value="Set color">
+  </form>
+  {% endif %}
+</div>
+{% endblock content %}

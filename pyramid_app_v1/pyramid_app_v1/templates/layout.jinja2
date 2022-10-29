@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="{{request.locale_name}}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="pyramid web application">
+    <meta name="author" content="Pylons Project">
+    <link rel="shortcut icon" href="{{request.static_url('pyramid_app_v1:static/pyramid-16x16.png')}}">
+
+    <title>Color Choiser app</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <!-- Custom styles for this scaffold -->
+    <link href="{{request.static_url('pyramid_app_v1:static/theme.css')}}" rel="stylesheet">
+
+
+  </head>
+
+  <body>
+
+  {% block js %}
+  {% endblock js %}
+        <script>
+
+          let jwt = window.location.href.replace("#access_token","?access_token");
+          if (jwt.includes('?access_token') && window.location.pathname == "/"){
+            document.cookie = "jwt="+jwt+"";
+            location.replace('/auth')
+          }
+
+          if (window.location.pathname == "/login" && jwt.includes('?access_token') ){
+            document.cookie = "jwt="+jwt+"";
+            location.replace('/refresh')
+          }
+
+        
+        //let jwt = window.location.href.split('#')[1].split("=",2)[1];
+    
+        </script>         
+ 
+
+  
+
+    <div class="">
+      <div class="p-2 border">
+              <a href="{{request.route_url('home')}}">Home</a>
+             {% if request.base is none%}
+                <a href="{{request.route_url('login')}}">Login</a>
+                <a href="{{request.route_url('register')}}">register</a>
+             {%else%}
+               <p>Welcom , {{request.base.user.email}} </p>
+               <a href="{{request.route_url('profile')}}">Profile</a>
+              <a href="{{request.route_url('logout')}}">Logout</a>
+              
+            {%endif%}
+             
+          </div>
+      <div class="container p-2">
+          <div class="">
+            {% block content %}
+                <p>No content</p>
+            {% endblock content %}
+          </div>
+       
+      
+        <div>
+          <div>
+            Copyright &copy; prefabsoftware Project
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+   
+   
+  </body>
+</html>

@@ -1,0 +1,77 @@
+{% extends "layout.jinja2" %}
+
+
+{% block content %}
+ 
+
+<div class="content">
+  <h1><span class="font-semi-bold">Color</span> <span class="smaller">Choiser</span></h1>
+  
+
+  <div>
+
+  {% if request.base is not none   %}
+       {% if request.base.user.user_metadata.fav_color %}
+       
+       {% else %}
+    <p>what is yours? tell us from here  <a href="{{request.route_url('profile')}}">Profile</a> </p>
+       {% endif %}
+  {% else %}
+    <p>Login to set your favorit color,  <a href="{{request.route_url('login')}}">Login</a> </p>
+
+  {% endif %}
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Color</th>
+          <th scope="col">Users love it</th>
+        </tr>
+      </thead>
+
+      <tbody>
+ 
+
+
+    {% for color in colors  %}
+          {% set count = namespace(value=0) %}
+          {% set included = namespace(value=0) %}
+
+        <tr>
+            <td>{{color}} <span style="background-color: {{color}};">.</span></td>
+            
+            {% for user in users  %}
+                {% if user.user_metadata.fav_color == color%}
+                  {% set count.value = count.value + 1 %}
+                    {% if request.base is not none and request.base.user.email == user.email  %}
+                  {% set included.value =  1 %}
+                    
+                    {% else %}
+                    {% endif %}
+                {% else %}
+                {% endif %}   
+            {% endfor %}
+
+
+              {% if included.value == 1 %}
+              <td><kbd >{{count.value}}</kbd> , including You</td>
+              {% else %}
+              <td><kbd >{{count.value}}</kbd></td>
+
+              {% endif %}
+            
+          </tr>
+    {% endfor %}
+
+    
+
+          
+      </tbody>
+    </table>
+  </div>
+
+  </div>
+  
+{% endblock content %}
+
+
