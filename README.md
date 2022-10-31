@@ -26,6 +26,17 @@ Getting Started
 - Run your project.
 
     `env/bin/pserve development.ini`
+    
+   
+- includ the test , not required
+
+- Install the project in editable mode with its testing requirements.
+
+    `env/bin/pip install -e ".[testing]"`
+
+- Run your project's tests.
+
+   ` env/bin/pytest`
 
 env file ,required section
 ---------------
