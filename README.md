@@ -29,6 +29,7 @@ Getting Started
 
 env file ,required section
 ---------------
+
     env file must be in root project (the root folder)
     NOTE : you have to name variable like this
     SUPABASE_URL=https://hsuiydedkodizodzitudz.supabase.co 
@@ -38,7 +39,9 @@ env file ,required section
 Outh authentication (Google,Github,Discord) , required section
 ---------------
 in supabase go to authentication > Settings > Auth Providers 
+
 Enable Github,Google,Discord
+
 Github  : https://supabase.com/docs/guides/auth/auth-github
 Google  : https://supabase.com/docs/guides/auth/auth-google
 Discord : https://supabase.com/docs/guides/auth/auth-discord
